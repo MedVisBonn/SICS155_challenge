@@ -39,13 +39,13 @@ def evaluate(groundtruth_path, prediction_path, mapping_path, probability_path):
         probs_path = os.path.join(probability_path, os.path.splitext(gt_file)[0] + ".npy") if probability_path else None
 
         if not os.path.exists(pred_path):
-            click.echo(f"Error: Prediction file {gt_path} does not exist.")
+            click.echo(f"Error: Prediction file {pred_path} does not exist.")
             return
 
         gt_phases = read_phase_file(gt_path)
         pred_phases = read_phase_file(pred_path)
         probs = np.load(probs_path) if probs_path else None
-
+        
         if len(gt_phases) != len(pred_phases):
             click.echo(f"Error: Ground truth and prediction file have different lengths: {len(gt_phases)}/{len(pred_phases)}.")
             click.echo(f"Adjusting the length of the prediction file to match the ground truth file...")
@@ -70,8 +70,7 @@ def evaluate(groundtruth_path, prediction_path, mapping_path, probability_path):
         metrics['f1_score'].append(f1)
         metrics['edit_score'].append(edit)
         metrics['pr_auc'].append(pr_auc)
-        
-        
+    
     avg_accuracy = np.mean(metrics['accuracy'])
     avg_f1 = np.mean(metrics['f1_score'])
     avg_edit = np.mean(metrics['edit_score'])

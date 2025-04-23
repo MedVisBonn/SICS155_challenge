@@ -1,8 +1,9 @@
 import numpy as np
+import os
 
 def load_action_map(mapping_path):
     """Loads a mapping file and returns a dictionary mapping action names to integers."""
-    mapping_file = open(mapping_path, 'r').readlines()
+    mapping_file = open(mapping_path, 'r').read()
     actions = mapping_file.split('\n')[:-1]
     actions_dict = dict()
     for a in actions:
@@ -13,7 +14,12 @@ def load_action_map(mapping_path):
 def read_phase_file(file_path):
     """Reads a phase file and returns a list of phases, ignoring the last line if it is empty."""
     with open(file_path, 'r') as file:
-        lines = [line.strip() for line in file]
+        lines = file.readlines()
+        if lines and "Frame level recognition" in lines[0]:
+            lines.pop(0)
+        if len(lines) == 1:
+            lines = lines[0].split()
+        lines = [line.strip() for line in lines]
     if lines and lines[-1] == '':
         lines.pop()
     return lines
@@ -58,7 +64,7 @@ def levenstein(p, y, norm=False):
                               D[i-1, j-1] + 1)
 
     if norm:
-        score = (1 - D[-1, -1]/max(m_row, n_col)) * 100
+        score = (1 - D[-1, -1]/max(m_row, n_col))
     else:
         score = D[-1, -1]
 
