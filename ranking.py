@@ -70,10 +70,9 @@ def accumulate_result_scores(results_path, results_dirs, gt_dir, gt_files):
     return results
 
 
-def determine_team_ranks(results, results_dirs, mode=np.median):
+def determine_team_ranks(results, results_dirs, mode=np.median, alpha=0.05):
     """ Perform Wilcoxon signed-rank test for each pair of submissions and determine team ranks. """
     metrics = ['accuracy', 'f1', 'edit']
-    alpha = 0.05
     team_ranks = {basename(d): {metric: 0 for metric in metrics} for d in results_dirs}
 
     for metric in metrics:
