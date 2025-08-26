@@ -1,4 +1,5 @@
 import os
+import numpy as np
 import pandas as pd
 from scipy.stats import wilcoxon
 from os.path import join, isdir, basename
@@ -69,31 +70,32 @@ def accumulate_result_scores(results_path, results_dirs, gt_dir, gt_files):
     return results
 
 
-def determine_team_ranks(results, results_dirs):
+def determine_team_ranks(results, results_dirs, mode=np.median):
     """ Perform Wilcoxon signed-rank test for each pair of submissions and determine team ranks. """
     metrics = ['accuracy', 'f1', 'edit']
     alpha = 0.05
-    team_ranks = {basename(d): 0 for d in results_dirs}
+    team_ranks = {basename(d): {metric: 0 for metric in metrics} for d in results_dirs}
 
-    for team in results_dirs:
-        team_name = basename(team)
-        worse_than = 0
-        for other_team in results_dirs:
-            other_team_name = basename(other_team)
-            if team_name is other_team_name:
-                continue
-
-            # print(f"\nComparing {team_name} vs {other_team_name}:")
-            for metric in metrics:
+    for metric in metrics:
+        for team in results_dirs:
+            worse_than = 0
+            team_name = basename(team)    
+            for other_team in results_dirs:
+                other_team_name = basename(other_team)
+                if team_name is other_team_name:
+                    continue
+                # print(f"\nComparing {team_name} vs {other_team_name}:")
+                
                 team_score = results[f"{team_name}_{metric}"].to_list()
                 other_team_score = results[f"{other_team_name}_{metric}"].to_list()
                 stat, p = wilcoxon(x=team_score, y=other_team_score, alternative='less', zero_method='zsplit')
                 # print(f"  {metric}: statistic={None}, p-value={p}")
                 if p < alpha:
                     worse_than += 1
-        print(f"{team_name} is significantly better than {worse_than} out of {len(results_dirs)} teams.")
-        team_ranks[team_name] = 3 * len(results_dirs) - worse_than
-    
+            print(f"{team_name} is significantly worse than {worse_than} out of {len(results_dirs)} teams in metric {metric}.")
+            team_ranks[team_name][metric] = len(results_dirs) - worse_than
+
+    team_ranks = {team: mode(list(scores.values())) for team, scores in team_ranks.items()}
     return team_ranks
 
 
