@@ -80,6 +80,8 @@ def evaluate(groundtruth_path, prediction_path, mapping_path, probability_path):
     click.echo(f"Average F1 Score: {avg_f1:.4f}")
     click.echo(f"Average Edit Score: {avg_edit:.4f}")
     click.echo(f"Average PR AUC: {avg_pr_auc:.4f}")
+    
+    return avg_accuracy, avg_f1, avg_edit, avg_pr_auc
             
 
 if __name__ == '__main__':

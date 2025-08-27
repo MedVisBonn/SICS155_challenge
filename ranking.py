@@ -6,6 +6,7 @@ from os.path import join, isdir, basename
 from sklearn import base
 from sklearn.metrics import f1_score, accuracy_score, average_precision_score
 from utils import read_phase_file, load_action_map, edit_score 
+from evaluation import evaluate
 
 
 GROUND_TRUTH_DIR = 'groundTruth'
@@ -87,7 +88,7 @@ def determine_team_ranks(results, results_dirs, mode=np.median, alpha=0.05):
                 
                 team_score = results[f"{team_name}_{metric}"].to_list()
                 other_team_score = results[f"{other_team_name}_{metric}"].to_list()
-                stat, p = wilcoxon(x=team_score, y=other_team_score, alternative='less', zero_method='zsplit')
+                stat, p = wilcoxon(x=team_score, y=other_team_score, alternative='less', zero_method='wilcox')
                 # print(f"  {metric}: statistic={None}, p-value={p}")
                 if p < alpha:
                     worse_than += 1
