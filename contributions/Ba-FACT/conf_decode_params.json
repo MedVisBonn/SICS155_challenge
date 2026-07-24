@@ -1,0 +1,58 @@
+{
+  "version": 2,
+  "num_classes": 19,
+  "class_names": {
+    "0": "background",
+    "1": "peritomy",
+    "2": "cautery",
+    "3": "scleral_groove",
+    "4": "incision",
+    "5": "tunnel",
+    "6": "sideport",
+    "7": "AB_injection_and_wash",
+    "8": "OVD_injection",
+    "9": "capsulorrhexis",
+    "10": "main_incision_entry",
+    "11": "hydroprocedure",
+    "12": "nucleus_prolapse",
+    "13": "nucleus_delivery",
+    "14": "cortical_wash",
+    "15": "OVD_IOL_insertion",
+    "16": "OVD_wash",
+    "17": "stromal_hydration",
+    "18": "tunnel_suture"
+  },
+  "temperature": 2.2276843131290245,
+  "confidence_thresholds": [
+    0.9240709773554587,
+    0.074011718331888,
+    0.09650831759475895,
+    0.017785891437470946,
+    0.005111981517198517,
+    0.7476324896980305,
+    0.014973028541789196,
+    0.035259598724087654,
+    0.11995439428324764,
+    0.0687931083873086,
+    0.023607723328732174,
+    0.01300375927614028,
+    0.015240796727593637,
+    0.03077812261444083,
+    0.060219477589699755,
+    0.23141121429635067,
+    0.6784109696964804,
+    0.10331247782659951,
+    0.10363442886721354
+  ],
+  "meta": {
+    "percentile": 10.0,
+    "tau_policy": "after_temp",
+    "clip_tau": false,
+    "tau_min": 0.0,
+    "tau_max": 1.0,
+    "epoch_list": [
+      13000
+    ],
+    "seed": 0
+  }
+}

@@ -1,0 +1,91 @@
+BU:
+  a: sa
+  a_dim: null
+  a_ffdim: null
+  a_layers: 1
+  a_nhead: 8
+  dropout: null
+  f: m2
+  f_dim: null
+  f_layers: 10
+  f_ln: null
+  f_ngp: null
+  hid_dim: null
+  s_layers: 1
+Bi:
+  a: sca
+  a_dim: 512
+  a_ffdim: 512
+  a_layers: 6
+  a_nhead: 8
+  dropout: 0.0
+  f: m2
+  f_dim: 512
+  f_layers: 10
+  f_ln: false
+  f_ngp: 1
+  hid_dim: 512
+Boundary:
+  loss_w: 1.0
+  tv_gamma: 2.0
+  use: true
+Bu:
+  a: sa
+  a_dim: null
+  a_ffdim: null
+  a_layers: 1
+  a_nhead: 8
+  dropout: null
+  f: m2
+  f_dim: null
+  f_layers: 10
+  f_ln: null
+  f_ngp: null
+  hid_dim: null
+FACT:
+  block: iuUU
+  cmr: 0.3
+  fpos: false
+  mwt: 0.1
+  ntoken: 36
+  trans: false
+Loss:
+  a2fc: 1.0
+  bgw: 1.0
+  match: o2o
+  nullw: -1.0
+  pc: 0.2
+  sw: 5.0
+TM:
+  inplace: true
+  m: 5
+  p: 0.05
+  t: 30
+  use: true
+aux:
+  debug: false
+  eval_every: 2000
+  gpu: 0
+  mark: ''
+  print_every: 1000
+  resume: max
+  runid: 0
+average_transcript_len: 19.038709677419355
+batch_size: 1
+bg_class: 0
+clip_grad_norm: 10.0
+dataset: sics155_c19_i3d
+epoch: 140
+eval_bg: true
+feature_path: FACT/sics155_c19_i3d/features
+feature_transpose: true 
+groundTruth_path: FACT/sics155_c19_i3d/groundTruth
+lr: 0.0001
+lr_decay: 80
+map_fname: FACT/sics155_c19_i3d/mapping.txt
+momentum: 0.0
+optimizer: Adam
+split: split1
+split_path: FACT/sics155_c19_i3d/splits
+sr: 1
+weight_decay: 0.0
